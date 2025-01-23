@@ -55,6 +55,7 @@ function generateCategories(categories) {
   /* Ajout du bouton de filtrage "Tous" */
   const filtre_tous = document.createElement("button");
   filtre_tous.textContent = "Tous";
+  filtre_tous.id = "tous";
   menu_filtres.appendChild(filtre_tous);
 
   /* Génération des filtres*/
@@ -70,10 +71,28 @@ function generateCategories(categories) {
   });
 }
 
-function filterWorks(id, categoryId) {
+// Filtrage des travaux par catégorie
+function filterWorks(travaux) {
+  const menu_filtres = document.querySelector(".menu_filtres");
+  const gallery = document.querySelector(".gallery");
+  const figures = document.querySelectorAll("figure");
 
+  menu_filtres.querySelectorAll("button").forEach((button) => {
+    button.addEventListener("click", () => {
+      const category = button.id;
+
+      //Filtrage des travaux en fonction de la catégorie
+      const filteredWorks = category === "tous"
+        ? travaux
+        : travaux.filter((travail) => travail.categoryId == category);
+
+      //Efface la gallery et la recrée
+      gallery.innerHTML = "";
+      generateCards(filteredWorks);
+
+    })
+  })
 }
-
 
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
@@ -81,6 +100,7 @@ async function main() {
   const categories = await fetchCategories();
   generateCards(works);
   generateCategories(categories);
+  filterWorks(works);
 }
 
 // Lancement de la fonction main au chargement de la page

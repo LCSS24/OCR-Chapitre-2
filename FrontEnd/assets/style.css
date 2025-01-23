@@ -90,6 +90,7 @@ video {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+  background-color: #FFFEF8;
 }
 
 /* HTML5 display-role reset for older browsers */
@@ -222,6 +223,15 @@ li:hover {
 }
 
 /* Code ajouté ici, concernant la disposition des filtres */
+nav a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.bold {
+  font-weight: 600;
+}
+
 .menu_filtres {
   display: flex;
   justify-content: center;
@@ -235,7 +245,7 @@ li:hover {
   font-size: 1rem;
   font-weight: 700;
   color: #1d6154;
-  background-color: #ffff;
+  background-color: #FFFEF8;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -250,6 +260,8 @@ li:hover {
   background-color: #1d6154;
   color: #ffff;
 }
+
+
 
 /* Fin du code ajouté*/
 
