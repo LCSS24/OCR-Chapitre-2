@@ -12,7 +12,7 @@
     />
     <meta name="description" content="" />
     <link rel="stylesheet" href="./assets/style.css" />
-    <script src="login.js"></script>
+    <script src="login.js" defer></script>
 </head>
 <body>
     <header>
@@ -27,17 +27,20 @@
       </nav>
     </header>
     <main>
-        <h2>Log in</h2>
-        <form action="">
+      <form class="loginform" action="">
+          <h2>Log In</h2>
+          <div class="champs">
             <label for="email">E-mail</label>
             <input type="email" id="email" name="email" required>
-            <br>
+          </div>
+          <div class="champs">
             <label for="mdp">Mot de passe</label>
             <input type="mdp" id="mdp" name="mdp" required>
-            <br>
-            <input type="submit" value="Se connecter">
+            <p id="erreurmdp">Email et/ou mot de passe incorrect</p>
+          </div>
+            <input class="btnlog" type="submit" value="Se connecter">
+            <a href="#">Mot de passe oublié</a>
         </form>
-        <p>Mot de passe oublié</p>
     </main>
     <footer>
     </footer>

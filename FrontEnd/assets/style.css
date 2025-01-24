@@ -254,6 +254,7 @@ nav a {
   border-radius: 60px;
   padding: 0 10px;
   min-width: 80px;
+  cursor: pointer;
 }
 
 .menu_filtres button:hover {
@@ -261,7 +262,53 @@ nav a {
   color: #ffff;
 }
 
+.btnlog {
+  height: inherit;
+  border: none;
+  height: 36px;
+  width: 179px;
+}
 
+.loginform {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3D3D3D
+}
+
+.loginform h2 {
+  margin-bottom: 20px;
+}
+
+.champs {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 379px;
+  font-family: "Work Sans";
+  font-size: 1em;
+  margin-top: 10px;
+}
+.champs label {
+  margin: 5px 0;
+font-weight: bold;
+}
+
+.champs input {
+  padding: 0 10px;
+}
+
+.champs p {
+  margin-top: 10px;
+  font-weight: 600;
+  color: rgb(255, 91, 91);
+}
+
+.loginform a {
+  text-decoration: underline;
+  color: #3D3D3D;
+  font-weight: 600;
+}
 
 /* Fin du code ajouté*/
 
@@ -297,7 +344,7 @@ nav a {
   flex-direction: column;
 }
 
-#contact input {
+#contact input, .loginform input {
   height: 50px;
   font-size: 1.2em;
   border: none;
