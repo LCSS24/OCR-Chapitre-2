@@ -72,26 +72,26 @@ function generateCategories(categories) {
 }
 
 // Filtrage des travaux par catégorie
-function filterWorks(travaux) {
+function filterWorks() {
   const menu_filtres = document.querySelector(".menu_filtres");
-  const gallery = document.querySelector(".gallery");
-  const figures = document.querySelectorAll("figure");
+  const gallery = document.querySelector(".gallery")
+  const figures = gallery.querySelectorAll("figure");
 
   menu_filtres.querySelectorAll("button").forEach((button) => {
     button.addEventListener("click", () => {
-      const category = button.id;
-
-      //Filtrage des travaux en fonction de la catégorie
-      const filteredWorks = category === "tous"
-        ? travaux
-        : travaux.filter((travail) => travail.categoryId == category);
-
-      //Efface la gallery et la recrée
-      gallery.innerHTML = "";
-      generateCards(filteredWorks);
-
-    })
-  })
+      const categoryId = button.id;
+      
+      figures.forEach(figure => {
+        if (categoryId === "tous") {
+          figure.style.display = "block";
+        } else {
+          figure.style.display = figure.id === categoryId
+            ? "block" 
+            : "none";
+        }
+      });
+    });
+  });
 }
 
 /* Fonction main qui exécute toute les fonctions*/
@@ -100,7 +100,7 @@ async function main() {
   const categories = await fetchCategories();
   generateCards(works);
   generateCategories(categories);
-  filterWorks(works);
+  filterWorks();
 }
 
 // Lancement de la fonction main au chargement de la page
