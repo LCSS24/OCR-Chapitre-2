@@ -45,11 +45,11 @@ function generateCards(items) {
 
 /* Génération des filtres de catégories*/
 function generateCategories(categories) {
-  let portfolioh2 = document.querySelector("#portfolio h2");
+  let divmodifier = document.querySelector(".modifier");
 
   /* Création de la div "menu_filtres" et intégration dans le HTML*/
   const menu_filtres = document.createElement("div");
-  portfolioh2.insertAdjacentElement("afterend", menu_filtres);
+  divmodifier.insertAdjacentElement("afterend", menu_filtres);
   menu_filtres.classList.add("menu_filtres");
 
   /* Ajout du bouton de filtrage "Tous" */
@@ -94,6 +94,27 @@ function filterWorks() {
   });
 }
 
+// MODE ADMINISTRATEUR //
+function affichageAdmin() {
+    document.querySelector(".modeedition").style.display = "flex"
+    document.querySelector(".menu_filtres").style.display = "none"
+    document.querySelector(".modifprojet").style.display = "block"
+
+    const logintxt = document.querySelector("li:nth-child(3) a")
+    logintxt.textContent = "logout"
+
+
+    
+
+    logintxt.addEventListener("click", (event) => {
+      event.preventDefault();
+      localStorage.removeItem("token");
+      window.location.href = "index.html"
+    })
+}
+
+
+
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
   const works = await fetchWork();
@@ -101,6 +122,10 @@ async function main() {
   generateCards(works);
   generateCategories(categories);
   filterWorks();
+  if (localStorage.getItem("token")) {
+  affichageAdmin();
+  }
+
 }
 
 // Lancement de la fonction main au chargement de la page

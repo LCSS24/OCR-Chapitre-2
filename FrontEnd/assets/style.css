@@ -136,17 +136,24 @@ table {
 }
 
 /** end reset css**/
+
 body {
-  max-width: 1140px;
-  margin: auto;
   font-family: "Work Sans";
   font-size: 14px;
 }
 
+.sousdiv {
+    max-width: 1140px;
+    margin: auto;
+    font-family: "Work Sans";
+    font-size: 14px;
+}
+
 header {
+  max-width: 1140px;
   display: flex;
   justify-content: space-between;
-  margin: 50px 0;
+  margin: 50px auto;
 }
 
 section {
@@ -219,7 +226,6 @@ li:hover {
 
 #portfolio h2 {
   text-align: center;
-  margin-bottom: 1em;
 }
 
 /* Code ajouté ici, concernant la disposition des filtres */
@@ -361,7 +367,8 @@ font-weight: bold;
   padding: 0 10px;
 }
 
-.champs p {
+#erreurmdp {
+  display: none;
   margin-top: 10px;
   font-weight: 600;
   color: rgb(255, 91, 91);
@@ -380,3 +387,42 @@ font-weight: bold;
   margin: 0;
   font-size: 0.875rem !important;
   }
+
+.modeedition {
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000;
+  height: 59px;
+  font-family: "Work Sans";
+  font-size: 14px;
+}
+
+.modeedition p,i {
+  background-color: #000000;
+  color: white;
+  cursor: pointer;
+}
+
+.modifier{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Work Sans";
+  font-size: 14px;
+  color: #3D3D3D;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.modifprojet i {
+  background-color: #FFFEF8;
+  color: #3D3D3D;
+}
+
+.modifprojet {
+  display: none;
+  background-color: #FFFEF8;
+  color: #3D3D3D;
+  cursor: pointer;
+}
