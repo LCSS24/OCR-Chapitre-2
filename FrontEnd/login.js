@@ -19,7 +19,7 @@ async function formFetch() {
     } else{
       console.log(reponse)
       const objetToken = await reponse.json();
-      localStorage.setItem("token",objetToken.token)
+      sessionStorage.setItem("token",objetToken.token)
       location = "index.html"
     }
 }

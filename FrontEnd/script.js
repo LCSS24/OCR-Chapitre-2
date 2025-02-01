@@ -95,22 +95,41 @@ function filterWorks() {
 }
 
 // MODE ADMINISTRATEUR //
+// Fonction qui gère l'affichage des éléments disponibles seulement pour l'admin
 function affichageAdmin() {
     document.querySelector(".modeedition").style.display = "flex"
     document.querySelector(".menu_filtres").style.display = "none"
     document.querySelector(".modifprojet").style.display = "block"
 
+    // Changement du mot login en logout
     const logintxt = document.querySelector("li:nth-child(3) a")
     logintxt.textContent = "logout"
 
-
-    
-
+    // Deconnexion lors du logout
     logintxt.addEventListener("click", (event) => {
       event.preventDefault();
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       window.location.href = "index.html"
     })
+}
+
+function affichageModale() {
+  const modale = document.querySelector(".modale_fond")
+  const btnmodale1 = document.querySelector(".modeedition p")
+  const btnmodale2 = document.querySelector(".modifprojet")
+  const btnsahah = [btnmodale1,btnmodale2]
+  const gallery = document.querySelector(".gallerymodale")
+
+  // Pour chaque bouton ("mode édition" et "modifier" a coté de Mes Projets), lors du click, afficher la modale
+  btnsahah.forEach((bouton) => bouton.addEventListener("click", (event) => {
+    modale.style.display = "flex"
+  }))
+
+  // Au click de la croix, la modale se ferme
+  document.querySelector(".modale i").addEventListener("click", (event) => modale.style.display = "none")
+
+
+
 }
 
 
@@ -122,8 +141,9 @@ async function main() {
   generateCards(works);
   generateCategories(categories);
   filterWorks();
-  if (localStorage.getItem("token")) {
+  if (sessionStorage.getItem("token")) {
   affichageAdmin();
+  affichageModale();
   }
 
 }
