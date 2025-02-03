@@ -94,7 +94,9 @@ function filterWorks() {
   });
 }
 
+
 // MODE ADMINISTRATEUR //
+
 // Fonction qui gère l'affichage des éléments disponibles seulement pour l'admin
 function affichageAdmin() {
     document.querySelector(".modeedition").style.display = "flex"
@@ -114,23 +116,32 @@ function affichageAdmin() {
 }
 
 function genGalleryModale(datas) {
+  //Récupération de la galerie de la modale
+  const gallerymodale = document.querySelector(".gallerymodale")
+
+  //Génération des images et attribution des id à chaque work
   datas.forEach((data) => {
-    const gallerymodale = document.querySelector(".gallerymodale")
     const figure = document.createElement("figure")
     const image = document.createElement("img")
+    figure.innerHTML = '<i class="fa-solid fa-trash-can" id="poubelle'+data.id+'"></i>'
     
     image.src = data.imageUrl
     figure.classList.add("figimg")
-    
+    figure.id = data.id
+
     gallerymodale.appendChild(figure)
-    figure.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
     figure.appendChild(image)
     
+    const poubelle = document.getElementById('poubelle'+data.id)
+    poubelle.addEventListener("click", (event) => {
+      fetchDelete(poubelle.id)
   })
- console.log(datas)
+  
+  })
+
 }
 
-function affichageModale(x) {
+function affichageModale(travaux) {
   const modale = document.querySelector(".modale_fond")
   const btnmodale1 = document.querySelector(".modeedition p")
   const btnmodale2 = document.querySelector(".modifprojet")
@@ -145,11 +156,28 @@ function affichageModale(x) {
   // Au click de la croix, la modale se ferme
   document.querySelector(".modale i").addEventListener("click", (event) => modale.style.display = "none")
 
-  genGalleryModale(x)
+  genGalleryModale(travaux)
+
+}
+
+async function fetchDelete(id) {
+  const reponse = await fetch("http://localhost:5678/api/works/"+id, {
+    method: "DELETE",
+    headers : {
+      "Accept" : "*/*",
+      "Authorization": `Bearer ${token}`
+      }
+  })
+
+  if (!reponse.ok) {
+console.log("ca marche pas")
+} else{
+  console.log(reponse)
 
 }
 
 
+}
 
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
