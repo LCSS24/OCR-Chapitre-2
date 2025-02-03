@@ -113,12 +113,29 @@ function affichageAdmin() {
     })
 }
 
-function affichageModale() {
+function genGalleryModale(datas) {
+  datas.forEach((data) => {
+    const gallerymodale = document.querySelector(".gallerymodale")
+    const figure = document.createElement("figure")
+    const image = document.createElement("img")
+    
+    image.src = data.imageUrl
+    figure.classList.add("figimg")
+    
+    gallerymodale.appendChild(figure)
+    figure.innerHTML = '<i class="fa-solid fa-trash-can"></i>'
+    figure.appendChild(image)
+    
+  })
+ console.log(datas)
+}
+
+function affichageModale(x) {
   const modale = document.querySelector(".modale_fond")
   const btnmodale1 = document.querySelector(".modeedition p")
   const btnmodale2 = document.querySelector(".modifprojet")
   const btnsahah = [btnmodale1,btnmodale2]
-  const gallery = document.querySelector(".gallerymodale")
+
 
   // Pour chaque bouton ("mode édition" et "modifier" a coté de Mes Projets), lors du click, afficher la modale
   btnsahah.forEach((bouton) => bouton.addEventListener("click", (event) => {
@@ -128,7 +145,7 @@ function affichageModale() {
   // Au click de la croix, la modale se ferme
   document.querySelector(".modale i").addEventListener("click", (event) => modale.style.display = "none")
 
-
+  genGalleryModale(x)
 
 }
 
@@ -143,7 +160,7 @@ async function main() {
   filterWorks();
   if (sessionStorage.getItem("token")) {
   affichageAdmin();
-  affichageModale();
+  affichageModale(works);
   }
 
 }

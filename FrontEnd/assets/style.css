@@ -428,7 +428,7 @@ font-weight: bold;
 }
 
 .modale_fond {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -443,17 +443,22 @@ font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  width: 630px;
-  height: 688px;
+  padding: 30px;
+  width: 570px;
+  height: 628px;
   border-radius: 10px;
 }
 
-.modale i {
+.croix {
   display: flex;
   justify-content: flex-end;
-  height: auto;
   width: 100%;
+  margin-bottom: 20px;
+}
+
+.modale i {
+  width: 12px;
+  height: 12px;
   background-color: #FFFEF8;
   color: #000000;
 }
@@ -462,8 +467,9 @@ font-weight: bold;
   display: flex;
   justify-content: center;
   font-family: "Work Sans";
-  font-size: 1rem;
+  font-size: 26px;
   font-weight: 400;
+  margin-bottom: 30px;
 }
 
 .modale button {
@@ -471,4 +477,50 @@ font-weight: bold;
   width: 237px;
   color: #FFFEF8;
   background-color: #1d6154;
+  margin-top: 50px;
+}
+
+.gallerymodale {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: space-between;
+  gap: 8px;
+  width: 420px;
+  height: 360px;
+  padding-bottom: 70px;
+  border-bottom: solid 1px #b3b3b3;
+}
+
+.gallerymodale figure{
+  height: 102px;
+  width: 76px;
+}
+
+.gallerymodale img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.figimg {
+display: flex;
+position: relative;
+
+}
+
+.figimg i {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  width: 17px;
+  height: 17px;
+  color: #FFFEF8;
+  background-color: #000000;
+  border-radius: 2px;
+  font-size: 10px;
+
 }
