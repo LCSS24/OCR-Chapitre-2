@@ -428,7 +428,7 @@ font-weight: bold;
 }
 
 .modale_fond {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -484,8 +484,8 @@ font-weight: bold;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  align-content: space-between;
-  gap: 8px;
+  align-content: flex-start;
+  gap: 20px 8px;
   width: 420px;
   height: 360px;
   padding-bottom: 70px;

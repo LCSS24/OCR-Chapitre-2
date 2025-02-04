@@ -35,6 +35,7 @@ function generateCards(items) {
     image.alt = item.title;
     texte.textContent = item.title;
     figure.id = item.categoryId;
+    figure.dataset.pbid = item.id;
 
     /* Affichage des cards*/
     gallery.appendChild(figure);
@@ -118,64 +119,82 @@ function affichageAdmin() {
 function genGalleryModale(datas) {
   //Récupération de la galerie de la modale
   const gallerymodale = document.querySelector(".gallerymodale")
+  const figurepage = document.querySelector("gallery figure")
 
   //Génération des images et attribution des id à chaque work
   datas.forEach((data) => {
     const figure = document.createElement("figure")
     const image = document.createElement("img")
-    figure.innerHTML = '<i class="fa-solid fa-trash-can" id="poubelle'+data.id+'"></i>'
-    
-    image.src = data.imageUrl
+    const i = document.createElement("i")
+ 
     figure.classList.add("figimg")
     figure.id = data.id
+    image.src = data.imageUrl
+    i.classList.add("fa-solid", "fa-trash-can")
+    i.dataset.poubelleid = data.id
 
     gallerymodale.appendChild(figure)
     figure.appendChild(image)
-    
-    const poubelle = document.getElementById('poubelle'+data.id)
-    poubelle.addEventListener("click", (event) => {
-      fetchDelete(poubelle.id)
-  })
-  
-  })
+    figure.appendChild(i)
+
+    //Au click sur la poubelle, stocker la valeur de l'id du work, la figure de la modale et celle de la section "mes projets"
+    i.addEventListener("click", (e) => {
+      const elementclicked = e.target.dataset.poubelleid
+      const figure =e.target.closest("figure")
+      const figurepage = document.querySelector(`.gallery figure[data-pbid="${elementclicked}"]`)
+
+      //Appel de la fonction de suppression avec comme arguments les 3 données ci-dessus
+      fetchDelete(elementclicked,figure,figurepage)
+    })
+  }
+)
 
 }
 
 function affichageModale(travaux) {
-  const modale = document.querySelector(".modale_fond")
+  const modalefond = document.querySelector(".modale_fond")
+  const modale = document.querySelector(".modale")
   const btnmodale1 = document.querySelector(".modeedition p")
   const btnmodale2 = document.querySelector(".modifprojet")
-  const btnsahah = [btnmodale1,btnmodale2]
+  const btnslist = [btnmodale1,btnmodale2]
 
 
   // Pour chaque bouton ("mode édition" et "modifier" a coté de Mes Projets), lors du click, afficher la modale
-  btnsahah.forEach((bouton) => bouton.addEventListener("click", (event) => {
-    modale.style.display = "flex"
+  btnslist.forEach((bouton) => bouton.addEventListener("click", () => {
+    modalefond.style.display = "flex"
   }))
 
   // Au click de la croix, la modale se ferme
-  document.querySelector(".modale i").addEventListener("click", (event) => modale.style.display = "none")
+  document.querySelector(".croix i").addEventListener("click", () => modalefond.style.display = "none")
+  
+  //Au click sur le fond, la modale se ferme
+  modalefond.addEventListener("click", (e) => {
+    if (e.target === modalefond & e.target !== modale) {
+      modalefond.style.display = "none"
+    }
+  })
 
+  //Appel de la fonction de génération des travaux dans la gallery modale
   genGalleryModale(travaux)
 
 }
 
-async function fetchDelete(id) {
+// Fonction de suppression des figures
+async function fetchDelete(id,figmodale,figpage) {
   const reponse = await fetch("http://localhost:5678/api/works/"+id, {
     method: "DELETE",
     headers : {
       "Accept" : "*/*",
-      "Authorization": `Bearer ${token}`
+      "Authorization": `Bearer ${sessionStorage.getItem("token")}`
       }
   })
 
   if (!reponse.ok) {
-console.log("ca marche pas")
-} else{
-  console.log(reponse)
-
+    console.log("ca marche pas")
+} else {
+    figmodale.remove()
+    figpage.remove()
 }
-
 
 }
 
@@ -187,8 +206,8 @@ async function main() {
   generateCategories(categories);
   filterWorks();
   if (sessionStorage.getItem("token")) {
-  affichageAdmin();
-  affichageModale(works);
+    affichageAdmin();
+    affichageModale(works);
   }
 
 }
