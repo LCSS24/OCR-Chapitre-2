@@ -20,7 +20,7 @@
   </head>
   <body>
     <aside class="modale_fond">
-      <div class="modale">
+      <div class="modale" id="modale1">
         <div class="croix">
           <i class="fa-solid fa-x"></i>
         </div>
@@ -28,8 +28,33 @@
         <div class="gallerymodale">
           <!--Figures générés en JS ici  -->
         </div>
-        <button>Ajouter une photo</button>
+        <button id="addphoto">Ajouter une photo</button>
       </div>
+      <div class="modale" id="modale2">
+        <div class="back_close">
+          <i class="fa-solid fa-arrow-left" id="arrowback"></i>
+          <i class="fa-solid fa-x" id="close"></i>
+        </div>
+        <h3>Ajout photo</h3>
+        <form class="formadd"action="" method="">
+          <div class="zoneadd">
+            <i class="fa-regular fa-image"></i>
+            <input type="file" id="file" hidden accept=".png, .jpg, .jpeg">
+            <label for="file" class="filebtn">+ Ajouter photo</label>
+            <p>jpg,png : 4mo max</p>
+          </div>
+          <label for="titre">Titre</label>
+          <input class="titre" type="text" name="titre" id="titre">
+          <label for="categories">Catégorie</label>
+            <select class="categorie" name="categories" id="categories">
+              <option value="">Selectionnez une catégorie</option>
+              <option value="1">Objets</option>
+              <option value="2">Appartements</option>
+              <option value="3">Hotel & restaurants</option>
+            </select>
+        </form>
+        <button type="submit" id="valider">Valider</button>
+        </div>
     </aside>
     <div class="modeedition">
       <p><i class="fa-solid fa-pen-to-square"></i> Mode édition</p>

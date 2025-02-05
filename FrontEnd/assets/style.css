@@ -302,7 +302,7 @@ nav a {
   flex-direction: column;
 }
 
-#contact input, .loginform input {
+#contact input, .loginform input, .categorie, .titre{
   height: 50px;
   font-size: 1.2em;
   border: none;
@@ -358,6 +358,7 @@ footer nav ul {
   font-size: 1em;
   margin-top: 10px;
 }
+
 .champs label {
   margin: 5px 0;
 font-weight: bold;
@@ -428,7 +429,7 @@ font-weight: bold;
 }
 
 .modale_fond {
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -440,7 +441,7 @@ font-weight: bold;
 }
 
 .modale {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   padding: 30px;
@@ -523,4 +524,93 @@ position: relative;
   border-radius: 2px;
   font-size: 10px;
 
+}
+
+#modale2 {
+  display: flex;
+  width: 570px;
+  height: 610px;
+
+}
+
+.back_close {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#arrowback {
+  display: flex;
+  width: 21px;
+  height: 21px;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+}
+
+#modale2 form {
+  display: flex;
+  flex-direction: column;
+  border-bottom: solid 1px #b3b3b3;
+  font-family: "Work Sans";
+  color: #3D3D3D;
+}
+
+.zoneadd {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-direction: column;
+  width: 420px;
+  height: 169px;
+  background-color: #E8F1F6;
+  border-radius: 3px;
+  margin-bottom: 30px;
+}
+
+.zoneadd i {
+  width: 76px;
+  height: 76px;
+  font-size: 76px;
+  color: #B9C5CC;
+  background-color: transparent;
+  
+}
+.zoneadd p {
+background-color: transparent;
+font-size: 0.6rem;
+color: #444444;
+font-family: "Work Sans";
+}
+
+.filebtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  width: 173px;
+  height: 36px;
+  border-radius: 50px;
+  background-color: #B9C5CC;
+  font-size: 0.8rem;
+  color: #306685;
+  font-weight: 500;
+  margin: 0;
+}
+
+.titre {
+  margin: 10px 0 20px 0;
+  padding: 0 10px;
+}
+
+.categorie {
+  margin: 10px 0 50px 0;
+  padding: 0 10px;
+}
+
+#valider {
+  margin-top: 40px;
+  background-color: #a7a7a7;
+  border: none;
 }

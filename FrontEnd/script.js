@@ -119,7 +119,6 @@ function affichageAdmin() {
 function genGalleryModale(datas) {
   //Récupération de la galerie de la modale
   const gallerymodale = document.querySelector(".gallerymodale")
-  const figurepage = document.querySelector("gallery figure")
 
   //Génération des images et attribution des id à chaque work
   datas.forEach((data) => {
@@ -151,7 +150,7 @@ function genGalleryModale(datas) {
 
 }
 
-function affichageModale(travaux) {
+function affichageModale1(travaux) {
   const modalefond = document.querySelector(".modale_fond")
   const modale = document.querySelector(".modale")
   const btnmodale1 = document.querySelector(".modeedition p")
@@ -198,6 +197,44 @@ async function fetchDelete(id,figmodale,figpage) {
 
 }
 
+function affichageModale2() {
+  const boutonadd = document.getElementById("addphoto")
+  const modale1 = document.getElementById("modale1")
+  const modale2 = document.getElementById("modale2")
+  const btnretour = document.getElementById("arrowback")
+  const modalefond = document.querySelector(".modale_fond")
+
+  // Au click de la croix, la modale se ferme
+  document.getElementById("close").addEventListener("click", () => modalefond.style.display = "none")
+
+  btnretour.addEventListener("click", () => {
+    modale2.style.display = "none"
+    modale1.style.display = "flex"
+  })
+  boutonadd.addEventListener("click",() => {
+    // Modale 2 qui apparait
+    modale1.style.display = "none"
+    modale2.style.display = "flex"
+    })
+
+    ajouterPhoto()
+}
+
+function ajouterPhoto() {
+  const inputfichier = document.getElementById("file")
+  inputfichier.addEventListener("change", (file) => {
+    let image = file.target.files[0]
+    if (image.size > 4e+6) {
+      console.log("Non")
+    } else {
+      let zoneadd = document.querySelector(".zoneadd")
+      const img = document.createElement("img")
+      zoneadd.appendChild(img)
+    }
+  })
+}
+
+
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
   const works = await fetchWork();
@@ -207,7 +244,8 @@ async function main() {
   filterWorks();
   if (sessionStorage.getItem("token")) {
     affichageAdmin();
-    affichageModale(works);
+    affichageModale1(works);
+    affichageModale2()
   }
 
 }
