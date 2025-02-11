@@ -107,7 +107,7 @@ async function fetchPhoto(photo,titre,categorie) {
     categorie : categorie
   }
 
-  console.log(form)
+  console.log("fetchPhoto donne: " + form)
 }
 
 // Fonction qui gère l'affichage des éléments disponibles seulement pour l'admin
@@ -229,18 +229,19 @@ function affichageModale2(categories) {
     modale2.style.display = "flex"
     })
 
-    categories.forEach((categorie) => {
-      const option = document.createElement("option")
-      const listeselection = document.getElementById("categories")
+  categories.forEach((categorie) => {
+    const option = document.createElement("option")
+    const listeselection = document.getElementById("categories")
 
-      option.value = categorie.id
-      option.text = categorie.name
+    option.value = categorie.id
+    option.text = categorie.name
 
-      listeselection.appendChild(option)
+    listeselection.appendChild(option)
 
-      ajouterPhoto()
+    
     })
-    formcheck()
+    ajouterPhoto()
+    formchecker()
   }
 
 function ajouterPhoto() {
@@ -260,27 +261,48 @@ function ajouterPhoto() {
   })
 }
 
-function formcheck() {
+function formchecker() {
   const btnvalider = document.getElementById("valider")
   const erreurform = document.querySelector(".erreurslctn")
+  const fileInput = document.getElementById("file")
+  const champTitre = document.getElementById("titre")
+  const champCategorie = document.getElementById("categories")
 
+  function checkForm(){
+    const file = fileInput.files[0]
+    const titre = champTitre.value
+    const categorie = champCategorie.value
 
+    const isFormValid = !!(file && titre.trim() && categorie !== "")
+    console.log(isFormValid)
+    if (isFormValid) {
+      btnvalider.style.backgroundColor = "#1d6154";
+      btnvalider.disabled = false;
+      erreurform.style.display = "none"
+ 
+    } else {
+      btnvalider.disabled = true;
+      btnvalider.style.backgroundColor = "#a7a7a7";
+
+    }
+    return isFormValid
+  }
+
+  champTitre.addEventListener("input", checkForm);
+  champCategorie.addEventListener("change", checkForm);
+  fileInput.addEventListener("change", checkForm);
+    
   btnvalider.addEventListener("click",() => {
-    const form = [
-      photo = document.querySelector(".imgload").src,
-      titre = document.getElementById("titre").value,
-      categorie = document.getElementById("categories").value
-    ]
-
-    console.log(form)
-    form.forEach((element) => {
-      if (element === null) {
-        erreurform.style.display = "block"
-      } else {fetchPhoto(form)}
-    })
-
+    console.log("event valider")
+    if (checkForm()) {
+      console.log("niquel")
+      // Envoyer photo via fetch
+    } else {
+      console.log("zzzzcd")
+      erreurform.style.display = "block";
+    }
   })
-
+  // const photo = document.querySelector(".imgload").src
 }
 
 /* Fonction main qui exécute toute les fonctions*/
