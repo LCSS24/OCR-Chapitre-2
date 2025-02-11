@@ -17,7 +17,6 @@ async function formFetch() {
         const txterreur = document.getElementById("erreurmdp")
         txterreur.style.display = "block";
     } else{
-      console.log(reponse)
       const objetToken = await reponse.json();
       sessionStorage.setItem("token",objetToken.token)
       location = "index.html"

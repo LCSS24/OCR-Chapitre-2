@@ -36,25 +36,24 @@
           <i class="fa-solid fa-x" id="close"></i>
         </div>
         <h3>Ajout photo</h3>
-        <form class="formadd"action="" method="">
+        <form class="formadd" action="" method="">
           <div class="zoneadd">
             <i class="fa-regular fa-image"></i>
-            <input type="file" id="file" hidden accept=".png, .jpg, .jpeg">
+            <input type="file" id="file" hidden accept=".png, .jpg, .jpeg" />
             <label for="file" class="filebtn">+ Ajouter photo</label>
             <p>jpg,png : 4mo max</p>
           </div>
           <label for="titre">Titre</label>
-          <input class="titre" type="text" name="titre" id="titre">
+          <input class="titre" type="text" name="titre" id="titre" />
           <label for="categories">Catégorie</label>
-            <select class="categorie" name="categories" id="categories">
-              <option value="">Selectionnez une catégorie</option>
-              <option value="1">Objets</option>
-              <option value="2">Appartements</option>
-              <option value="3">Hotel & restaurants</option>
-            </select>
+          <select class="categorie" name="categories" id="categories">
+            <option value="">Selectionnez une catégorie</option>
+            <!-- Options générées en JS ici -->
+          </select>
         </form>
         <button type="submit" id="valider">Valider</button>
-        </div>
+        <p class="erreurslctn">Veuillez remplir tout les champs</p>
+      </div>
     </aside>
     <div class="modeedition">
       <p><i class="fa-solid fa-pen-to-square"></i> Mode édition</p>

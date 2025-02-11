@@ -429,7 +429,7 @@ font-weight: bold;
 }
 
 .modale_fond {
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
   position: fixed;
@@ -530,7 +530,6 @@ position: relative;
   display: flex;
   width: 570px;
   height: 610px;
-
 }
 
 .back_close {
@@ -602,15 +601,31 @@ font-family: "Work Sans";
 .titre {
   margin: 10px 0 20px 0;
   padding: 0 10px;
+  font-family: "Work Sans";
+  color: #3D3D3D;
 }
 
 .categorie {
   margin: 10px 0 50px 0;
   padding: 0 10px;
+  font-family: "Work Sans";
+  color: #3D3D3D;
 }
 
 #valider {
   margin-top: 40px;
   background-color: #a7a7a7;
   border: none;
+}
+
+.imgload {
+  object-fit: cover;
+  height: 100%;
+}
+
+.erreurslctn {
+  display: none;
+  margin-top: 10px;
+  font-weight: 600;
+  color: rgb(255, 91, 91);
 }

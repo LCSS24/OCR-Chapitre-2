@@ -21,6 +21,8 @@ async function fetchWork() {
   }
 }
 
+
+
 /* Ensuite, génération des éléments HTML des cards*/
 function generateCards(items) {
   const gallery = document.querySelector(".gallery");
@@ -97,6 +99,16 @@ function filterWorks() {
 
 
 // MODE ADMINISTRATEUR //
+
+async function fetchPhoto(photo,titre,categorie) {
+  const form = {
+    photo : photo,
+    titre : titre,
+    categorie : categorie
+  }
+
+  console.log(form)
+}
 
 // Fonction qui gère l'affichage des éléments disponibles seulement pour l'admin
 function affichageAdmin() {
@@ -194,10 +206,9 @@ async function fetchDelete(id,figmodale,figpage) {
     figmodale.remove()
     figpage.remove()
 }
-
 }
 
-function affichageModale2() {
+function affichageModale2(categories) {
   const boutonadd = document.getElementById("addphoto")
   const modale1 = document.getElementById("modale1")
   const modale2 = document.getElementById("modale2")
@@ -211,29 +222,66 @@ function affichageModale2() {
     modale2.style.display = "none"
     modale1.style.display = "flex"
   })
+
   boutonadd.addEventListener("click",() => {
     // Modale 2 qui apparait
     modale1.style.display = "none"
     modale2.style.display = "flex"
     })
 
-    ajouterPhoto()
-}
+    categories.forEach((categorie) => {
+      const option = document.createElement("option")
+      const listeselection = document.getElementById("categories")
+
+      option.value = categorie.id
+      option.text = categorie.name
+
+      listeselection.appendChild(option)
+
+      ajouterPhoto()
+    })
+    formcheck()
+  }
 
 function ajouterPhoto() {
   const inputfichier = document.getElementById("file")
-  inputfichier.addEventListener("change", (file) => {
-    let image = file.target.files[0]
-    if (image.size > 4e+6) {
-      console.log("Non")
-    } else {
-      let zoneadd = document.querySelector(".zoneadd")
-      const img = document.createElement("img")
-      zoneadd.appendChild(img)
-    }
+
+  inputfichier.addEventListener("change", () => {
+  const image = inputfichier.files[0]
+  const imageURL = URL.createObjectURL(image)
+  const zoneadd = document.querySelector(".zoneadd")
+  const img = document.createElement("img")
+
+  zoneadd.innerHTML = ""
+  img.src = imageURL
+  img.classList.add("imgload")
+  zoneadd.appendChild(img)
+
   })
 }
 
+function formcheck() {
+  const btnvalider = document.getElementById("valider")
+  const erreurform = document.querySelector(".erreurslctn")
+
+
+  btnvalider.addEventListener("click",() => {
+    const form = [
+      photo = document.querySelector(".imgload").src,
+      titre = document.getElementById("titre").value,
+      categorie = document.getElementById("categories").value
+    ]
+
+    console.log(form)
+    form.forEach((element) => {
+      if (element === null) {
+        erreurform.style.display = "block"
+      } else {fetchPhoto(form)}
+    })
+
+  })
+
+}
 
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
@@ -245,9 +293,8 @@ async function main() {
   if (sessionStorage.getItem("token")) {
     affichageAdmin();
     affichageModale1(works);
-    affichageModale2()
+    affichageModale2(categories)
   }
-
 }
 
 // Lancement de la fonction main au chargement de la page
