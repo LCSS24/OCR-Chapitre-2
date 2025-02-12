@@ -1,3 +1,5 @@
+var htmlmodale2 = "rien";
+
 /* Récupération des catégories*/
 async function fetchCategories() {
   try {
@@ -26,6 +28,7 @@ async function fetchWork() {
 /* Ensuite, génération des éléments HTML des cards*/
 function generateCards(items) {
   const gallery = document.querySelector(".gallery");
+  gallery.innerHTML = ""
   // Création des éléments HTML
   items.forEach((item) => {
     const figure = document.createElement("figure");
@@ -101,13 +104,33 @@ function filterWorks() {
 // MODE ADMINISTRATEUR //
 
 async function fetchPhoto(photo,titre,categorie) {
-  const form = {
-    photo : photo,
-    titre : titre,
-    categorie : categorie
-  }
+  const token = sessionStorage.getItem("token")
+  const formData = new FormData();
+  formData.append("image", photo)
+  formData.append("title", titre)
+  formData.append("category", categorie)
+  const reponse = await fetch("http://localhost:5678/api/works", {
+    method: "POST",
+    headers: {
+      "accept" : "application/json",
+      "Authorization" : 'Bearer ' + token
+    },
+    body: formData
+  })
+  const data = await reponse.json()
+  console.log(data)
 
-  console.log("fetchPhoto donne: " + form)
+  if (reponse.ok) {
+    const works = await fetchWork()
+    const categorie = await fetchCategories()
+    const modale2 = document.getElementById("modale2")
+    const modale1 = document.getElementById("modale2")
+
+    genGalleryModale(works)
+    generateCards(works)
+    modale2.innerHTML = htmlmodale2
+    affichageModale2(categorie)
+  }
 }
 
 // Fonction qui gère l'affichage des éléments disponibles seulement pour l'admin
@@ -131,7 +154,7 @@ function affichageAdmin() {
 function genGalleryModale(datas) {
   //Récupération de la galerie de la modale
   const gallerymodale = document.querySelector(".gallerymodale")
-
+  gallerymodale.innerHTML = ""
   //Génération des images et attribution des id à chaque work
   datas.forEach((data) => {
     const figure = document.createElement("figure")
@@ -189,7 +212,6 @@ function affichageModale1(travaux) {
   genGalleryModale(travaux)
 
 }
-
 // Fonction de suppression des figures
 async function fetchDelete(id,figmodale,figpage) {
   const reponse = await fetch("http://localhost:5678/api/works/"+id, {
@@ -214,7 +236,7 @@ function affichageModale2(categories) {
   const modale2 = document.getElementById("modale2")
   const btnretour = document.getElementById("arrowback")
   const modalefond = document.querySelector(".modale_fond")
-
+  // modale2.innerHTML = ""
   // Au click de la croix, la modale se ferme
   document.getElementById("close").addEventListener("click", () => modalefond.style.display = "none")
 
@@ -268,20 +290,17 @@ function formchecker() {
   const champTitre = document.getElementById("titre")
   const champCategorie = document.getElementById("categories")
 
-  function checkForm(){
+  function checkForm() {
     const file = fileInput.files[0]
     const titre = champTitre.value
     const categorie = champCategorie.value
 
     const isFormValid = !!(file && titre.trim() && categorie !== "")
-    console.log(isFormValid)
     if (isFormValid) {
       btnvalider.style.backgroundColor = "#1d6154";
-      btnvalider.disabled = false;
       erreurform.style.display = "none"
  
     } else {
-      btnvalider.disabled = true;
       btnvalider.style.backgroundColor = "#a7a7a7";
 
     }
@@ -293,20 +312,22 @@ function formchecker() {
   fileInput.addEventListener("change", checkForm);
     
   btnvalider.addEventListener("click",() => {
-    console.log("event valider")
     if (checkForm()) {
-      console.log("niquel")
+      const photo = document.getElementById("file").files[0]
+      const titre = champTitre.value
+      const categorie = champCategorie.value
       // Envoyer photo via fetch
+      fetchPhoto(photo,titre,categorie)
     } else {
-      console.log("zzzzcd")
       erreurform.style.display = "block";
     }
   })
-  // const photo = document.querySelector(".imgload").src
 }
+
 
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
+  htmlmodale2 = document.getElementById("modale2").innerHTML;
   const works = await fetchWork();
   const categories = await fetchCategories();
   generateCards(works);
