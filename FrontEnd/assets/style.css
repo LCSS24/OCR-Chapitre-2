@@ -268,8 +268,6 @@ nav a {
   color: #ffff;
 }
 
-/* Fin du code ajouté*/
-
 .gallery {
   width: 100%;
   display: grid;
@@ -280,6 +278,8 @@ nav a {
 
 .gallery img {
   width: 100%;
+  height: 490px;
+  object-fit: cover;
 }
 
 #contact {
@@ -441,7 +441,7 @@ font-weight: bold;
 }
 
 .modale {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px;
@@ -527,7 +527,7 @@ position: relative;
 }
 
 #modale2 {
-  display: flex;
+  display: none;
   width: 570px;
   height: 610px;
 }

@@ -1,9 +1,7 @@
-var htmlmodale2 = "rien";
 
 /* Récupération des catégories*/
 async function fetchCategories() {
   try {
-
     const demande = await fetch("http://localhost:5678/api/categories");
     const reponse = await demande.json();
     return reponse;
@@ -22,8 +20,6 @@ async function fetchWork() {
     console.error("Erreur lors de la récupération des travaux : " + error);
   }
 }
-
-
 
 /* Ensuite, génération des éléments HTML des cards*/
 function generateCards(items) {
@@ -51,7 +47,7 @@ function generateCards(items) {
 
 /* Génération des filtres de catégories*/
 function generateCategories(categories) {
-  let divmodifier = document.querySelector(".modifier");
+  const divmodifier = document.querySelector(".modifier");
 
   /* Création de la div "menu_filtres" et intégration dans le HTML*/
   const menu_filtres = document.createElement("div");
@@ -100,9 +96,7 @@ function filterWorks() {
   });
 }
 
-
 // MODE ADMINISTRATEUR //
-
 async function fetchPhoto(photo,titre,categorie) {
   const token = sessionStorage.getItem("token")
   const formData = new FormData();
@@ -124,7 +118,6 @@ async function fetchPhoto(photo,titre,categorie) {
     const works = await fetchWork()
     const categorie = await fetchCategories()
     const modale2 = document.getElementById("modale2")
-    const modale1 = document.getElementById("modale2")
 
     genGalleryModale(works)
     generateCards(works)
@@ -187,7 +180,7 @@ function genGalleryModale(datas) {
 
 function affichageModale1(travaux) {
   const modalefond = document.querySelector(".modale_fond")
-  const modale = document.querySelector(".modale")
+  const modale = document.querySelector("modale")
   const btnmodale1 = document.querySelector(".modeedition p")
   const btnmodale2 = document.querySelector(".modifprojet")
   const btnslist = [btnmodale1,btnmodale2]
@@ -264,7 +257,7 @@ function affichageModale2(categories) {
     })
     ajouterPhoto()
     formchecker()
-  }
+}
 
 function ajouterPhoto() {
   const inputfichier = document.getElementById("file")
@@ -274,11 +267,23 @@ function ajouterPhoto() {
   const imageURL = URL.createObjectURL(image)
   const zoneadd = document.querySelector(".zoneadd")
   const img = document.createElement("img")
+  const typeOk = ["image/jpeg", "image/png", "image/jpg"]
+  const erreurfile = document.querySelector(".zoneadd p")
 
-  zoneadd.innerHTML = ""
-  img.src = imageURL
-  img.classList.add("imgload")
-  zoneadd.appendChild(img)
+  if (image.size >= 4 * 1024 * 1024) {
+    erreurfile.textContent = "Le fichier est trop lourd (4mo)"
+    erreurfile.style.color = "rgb(255, 91, 91)"
+    zoneadd.appendChild(erreurfile)
+  } else if (!typeOk.includes(image.type)){
+    erreurfile.textContent = "Le type de fichier n'est pas valide (png,jpg,jpeg)"
+    erreurfile.style.color = "rgb(255, 91, 91)"
+  } else {
+    zoneadd.innerHTML = ""
+    img.src = imageURL
+    img.classList.add("imgload")
+    zoneadd.appendChild(img)
+    caca
+  }
 
   })
 }
@@ -324,9 +329,10 @@ function formchecker() {
   })
 }
 
-
 /* Fonction main qui exécute toute les fonctions*/
 async function main() {
+  //Vide la modale 2, puis la copie au chargement de la page, utile pour recharger la modale lors de l'upload d'une photo
+  htmlmodale2 = ""
   htmlmodale2 = document.getElementById("modale2").innerHTML;
   const works = await fetchWork();
   const categories = await fetchCategories();
